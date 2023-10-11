@@ -61,11 +61,56 @@
             margin-bottom: 10px;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://spartacodingclub.shop/sparta_api/weather/seoul',
+                data: {},
+                success: function (response) {
+                    $('#temp').text(response['temp']);
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
+    <script>
+        $(document).ready(function () {
+            // Fungsi untuk memuat pesan dari server saat halaman dimuat
+            $.ajax({
+                type: "GET",
+                url: "/homework",
+                success: function (response) {
+                    var messages = response.messages;
+                    var cardsContainer = $('.mycards');
+
+                    messages.forEach(function (message) {
+                        var card = `
+                            <div class="card">
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0">
+                                        <p>"${message.comment}"</p>
+                                        <footer class="blockquote-footer">${message.name}</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        `;
+                        cardsContainer.append(card);
+                    });
+                },
+                error: function (error) {
+                    console.error("Error:", error);
+                }
+            });
+        });
+    </script>
+
+
     <div class="mypic">
         <h1>Go Yoon Jung Fan Book</h1>
+        <p>Current Temperature in Seoul: <span id="temp">36</span>degrees</p>
     </div>
     <div class="mypost">
         <div class="form-floating mb-3">
